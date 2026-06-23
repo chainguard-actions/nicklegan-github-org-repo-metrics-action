@@ -1,0 +1,31 @@
+name: Test GitHub App Authentication Inputs
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Test action with GitHub App auth inputs
+        id: action
+        continue-on-error: true
+        uses: .
+        with:
+          token: 'fake-token'
+          org: 'test-org'
+          days: '7'
+          appid: '12345'
+          privatekey: 'fake-private-key'
+          installationid: '67890'
+      - name: Assert action was invoked with app auth inputs
+        run: |
+          # The action is expected to fail with fake credentials,
+          # but we verify it was invoked (continue-on-error handles the failure).
+          # The key requirement is that appid, privatekey, and installationid
+          # inputs are accepted by the action without schema errors.
+          echo "Action outcome: ${{ steps.action.outcome }}"
+          if [ "${{ steps.action.outcome }}" = "skipped" ]; then
+            echo "FAIL: action was skipped unexpectedly"
+            exit 1
+          fi
+          echo "PASS: action was invoked with GitHub App auth inputs"

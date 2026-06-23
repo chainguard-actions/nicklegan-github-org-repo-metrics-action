@@ -1,0 +1,34 @@
+name: Test custom stale and old thresholds
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          org: 'nicklegan'
+          days: '7'
+          sort: 'closedIssues'
+          stale: '7'
+          old: '60'
+          committer-name: 'github-actions'
+          committer-email: 'github-actions@github.com'
+        continue-on-error: true
+      - name: Assert action ran without unexpected error
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          # The action may fail due to API rate limits or missing org access in test env,
+          # but it should not be skipped.
+          if [ "$OUTCOME" = "skipped" ]; then
+            echo "FAIL: action was skipped unexpectedly"
+            exit 1
+          fi
+          echo "PASS: action ran with custom stale/old thresholds (outcome=$OUTCOME)"

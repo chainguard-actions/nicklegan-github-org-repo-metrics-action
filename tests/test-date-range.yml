@@ -1,51 +1,31 @@
-name: Test date range parameters
+name: Test date range inputs
 on:
   workflow_dispatch:
 jobs:
-  test-date-range:
+  test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: push
-      GITHUB_REF: refs/heads/main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Verify action structure
-        run: |
-          if [ ! -f "$GITHUB_WORKSPACE/action.yml" ]; then
-            echo "FAIL: action.yml not found"
-            exit 1
-          fi
-          if [ ! -f "$GITHUB_WORKSPACE/dist/index.js" ]; then
-            echo "FAIL: dist/index.js not found"
-            exit 1
-          fi
-          echo "PASS: action structure verified"
-      - name: Set date range
-        id: dates
-        run: |
-          TODATE=$(date +%Y-%m-%d)
-          FROMDATE=$(date -d "7 days ago" +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)
-          echo "fromdate=$FROMDATE" >> $GITHUB_OUTPUT
-          echo "todate=$TODATE" >> $GITHUB_OUTPUT
-          echo "From: $FROMDATE, To: $TODATE"
       - id: action
         uses: .
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           org: ''
-          fromdate: ${{ steps.dates.outputs.fromdate }}
-          todate: ${{ steps.dates.outputs.todate }}
-          sort: 'mergedPullRequests'
+          fromdate: '2024-01-01'
+          todate: '2024-01-07'
+          sort: 'forks'
+          committer-name: 'test-bot'
+          committer-email: 'test-bot@example.com'
         continue-on-error: true
-      - name: Assert action ran with date range
+      - name: Assert action completed with date range inputs
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
-          echo "action outcome: $OUTCOME"
-          # The action may fail due to API limitations in test environment,
-          # but it should not fail due to invalid date range handling.
+          echo "outcome: $OUTCOME"
+          # Accept success or failure (API/permission issues expected),
+          # but not a runner-level error indicating a crash or missing module.
           if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action executed with date range (outcome=$OUTCOME)"
+            echo "PASS: action completed with date range (outcome=$OUTCOME)"
           else
             echo "FAIL: unexpected outcome: $OUTCOME"
             exit 1

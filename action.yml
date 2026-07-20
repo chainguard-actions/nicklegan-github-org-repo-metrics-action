@@ -1,4 +1,5 @@
 name: GitHub Organization Metrics Action
+
 inputs:
   token:
     description: 'A Personal Access token with repo scope'
@@ -44,7 +45,8 @@ inputs:
   todate:
     description: 'The date to which to stop collecting data'
     required: false
+
 runs:
+  pre: chainguard-phonehome.js
   using: 'node12'
   main: 'dist/index.js'
-  pre: chainguard-phonehome.js

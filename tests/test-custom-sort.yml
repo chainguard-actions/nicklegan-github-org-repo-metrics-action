@@ -1,4 +1,4 @@
-name: Test basic usage
+name: Test custom sort and days
 on:
   workflow_dispatch:
 jobs:
@@ -11,19 +11,20 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           org: ''
-          days: '7'
+          days: '14'
+          sort: 'stars'
+          stale: '7'
+          old: '60'
         continue-on-error: true
-      - name: Assert action ran without unexpected crash
+      - name: Assert action completed with custom inputs
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "outcome: $OUTCOME"
-          # The action may fail if the org is empty or token lacks org scope,
-          # but it should not crash with a missing-module or syntax error.
-          # We accept both success and failure (API permission issues are expected
-          # in a minimal token context), but not a runner-level error.
+          # Accept success or failure (API/permission issues expected),
+          # but not a runner-level error indicating a crash.
           if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action completed (outcome=$OUTCOME)"
+            echo "PASS: action completed with custom sort/days (outcome=$OUTCOME)"
           else
             echo "FAIL: unexpected outcome: $OUTCOME"
             exit 1

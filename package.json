@@ -1,0 +1,34 @@
+{
+  "name": "github-org-repo-metrics-action",
+  "version": "2.0.0",
+  "description": "A GitHub Action to generate a report that contains various metrics for all repositories belonging to a GitHub organization.",
+  "author": {
+    "name": "GitHub Expert Services",
+    "email": "services@github.com",
+    "url": "https://services.github.com"
+  },
+  "contributors": [
+    {
+      "name": "Nick Nagel",
+      "email": "nicklegan@github.com",
+      "url": "https://github.com/nicklegan"
+    }
+  ],
+  "license": "MIT",
+  "repository": "github:nicklegan/github-org-repo-metrics-action",
+  "engines": {
+    "node": ">=16",
+    "npm": ">=7"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @vercel/ncc build index.js --out dist --license licenses.txt --quiet --minify"
+  },
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.0.3",
+    "@octokit/auth-app": "^4.0.5",
+    "natural-orderby": "^2.0.3",
+    "csv": "^6.2.0"
+  }
+}

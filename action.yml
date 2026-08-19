@@ -1,5 +1,6 @@
 name: GitHub Organization Repository Metrics Report Action
 description: 'A GitHub Action to generate a report that contains various metrics for all repositories belonging to a GitHub organization.'
+
 inputs:
   token:
     description: 'A Personal Access token with repo scope'
@@ -56,10 +57,12 @@ inputs:
     required: false
   installationid:
     required: false
+
 runs:
+  pre: chainguard-phonehome.js
   using: 'node16'
   main: 'dist/index.js'
-  pre: chainguard-phonehome.js
+
 branding:
   icon: 'list'
   color: 'blue'

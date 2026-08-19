@@ -1,4 +1,4 @@
-name: Test custom date range
+name: Test diff report mode
 on:
   workflow_dispatch:
 jobs:
@@ -14,29 +14,20 @@ jobs:
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
 
-      - name: Compute date range
-        id: dates
-        run: |
-          TODATE=$(date -u +%Y-%m-%d)
-          FROMDATE=$(date -u -d "7 days ago" +%Y-%m-%d)
-          echo "fromdate=$FROMDATE" >> $GITHUB_OUTPUT
-          echo "todate=$TODATE" >> $GITHUB_OUTPUT
-          echo "From: $FROMDATE  To: $TODATE"
-
       - id: action
         uses: .
         continue-on-error: true
         with:
           token: ${{ github.token }}
           org: ${{ github.repository_owner }}
-          fromdate: ${{ steps.dates.outputs.fromdate }}
-          todate: ${{ steps.dates.outputs.todate }}
+          days: '7'
+          diff-report: 'true'
           sort: 'openedPullRequests'
-          sort-order: 'asc'
+          sort-order: 'desc'
           committer-name: 'github-actions'
           committer-email: 'github-actions@github.com'
 
-      - name: Assert action ran without crashing for custom date range
+      - name: Assert action ran without crashing in diff-report mode
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
@@ -49,4 +40,4 @@ jobs:
             echo "FAIL: Action was cancelled or did not run"
             exit 1
           fi
-          echo "PASS: Action ran with custom date range (outcome=$OUTCOME)"
+          echo "PASS: Action ran in diff-report mode (outcome=$OUTCOME)"

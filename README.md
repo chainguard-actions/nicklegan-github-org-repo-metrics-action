@@ -10,6 +10,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 |---------|-----|-----------------|
 | v1.0.1 | [`v1.0.1`](https://github.com/chainguard-actions/nicklegan-github-org-repo-metrics-action/tree/v1.0.1) | [`159d9e2`](https://github.com/nicklegan/github-org-repo-metrics-action/commit/159d9e28956ebb2ce00b832e5be37d2dc24343c7) |
 | v1.0.2 | [`v1.0.2`](https://github.com/chainguard-actions/nicklegan-github-org-repo-metrics-action/tree/v1.0.2) | [`1a155fd`](https://github.com/nicklegan/github-org-repo-metrics-action/commit/1a155fd46919723da3df2dee5da7062d03ec2711) |
+| v2.0.0 | [`v2.0.0`](https://github.com/chainguard-actions/nicklegan-github-org-repo-metrics-action/tree/v2.0.0) | [`9c83e93`](https://github.com/nicklegan/github-org-repo-metrics-action/commit/9c83e93384e9102b9aecbffda79f2a61d80b0605) |
 | v2.0.1 | [`v2.0.1`](https://github.com/chainguard-actions/nicklegan-github-org-repo-metrics-action/tree/v2.0.1) | [`6da128d`](https://github.com/nicklegan/github-org-repo-metrics-action/commit/6da128de77206be7fc80706526c8989d6653c2d6) |
 | v2.1.0 | [`v2.1.0`](https://github.com/chainguard-actions/nicklegan-github-org-repo-metrics-action/tree/v2.1.0) | [`807c43b`](https://github.com/nicklegan/github-org-repo-metrics-action/commit/807c43b9d76530f62347e7e7871ca13cf77b230e) |
 

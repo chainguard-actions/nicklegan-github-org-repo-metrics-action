@@ -4,8 +4,13 @@
   "version": "v2.0.1",
   "commit_sha": "6da128de77206be7fc80706526c8989d6653c2d6",
   "url": "https://github.com/nicklegan/github-org-repo-metrics-action",
-  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "policy_sha": "374911c4be584df24e6da57af2d990570ef0f859",
   "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
   "test_agent_version": "2",
-  "harden_agent_version": "2"
+  "harden_agent_version": "2",
+  "dist_artifact": {
+    "gcs_uri": "gs://patch-actions-node-artifacts/dist-artifacts/nicklegan/github-org-repo-metrics-action/v2.0.1/sha256-ed9d759066957db090a29b561a3061c0b55ba60e3e0c77853b5788b6cf4224dd.tar.gz",
+    "sha256": "ed9d759066957db090a29b561a3061c0b55ba60e3e0c77853b5788b6cf4224dd",
+    "size_bytes": 149436
+  }
 }
